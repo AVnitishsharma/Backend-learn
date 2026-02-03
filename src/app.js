@@ -1,38 +1,30 @@
+//server ko create krna
+
 const express = require("express")
+const noteModel = require("./models/note.models")
 const app = express()
 
-app.use(express.json())
+app.use(express.json()) //middleware
 
-const notes =[]
+app.post("/notes", async(req, res)=>{
+  const {title, disc} = req.body
 
-app.post("/notes", (req,res)=>{
-  notes.push(req.body)
+  const note = await noteModel.create({
+    title, disc
+  })
 
   res.status(201).json({
-    message:"note created"
+    message: "note created",
+    note
   })
 })
 
-app.get("/notes", (req, res)=>{
-  res.send("<h1>Hello World</h1>")
-  res.status(200).json({
-    notes: notes
-  })
-})
-
-app.delete("/notes/:index", (req,res)=>{
-  delete notes[req.params.index]
-
-  res.status(204).json({
-    message: "note deleted"
-  })
-})
-
-app.patch("/notes/:index", (req, res)=>{
-  notes[req.params.index].description = req.body.description
+app.get("/notes", async (req, res)=>{
+  const notes = await noteModel.find()
 
   res.status(200).json({
-    message:"note discription updated"
+    message: "Note fetch",
+    notes
   })
 })
 module.exports = app
