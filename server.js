@@ -1,11 +1,9 @@
-//Server ko start krna 
-//Data based se connect krna 
-require("dotenv").config()
+require("dotenv").config() // ye env ko server se connect krti ha
 const app = require("./src/app")
-const connectdb = require("./src/config/database")
+const connectToDB = require("./src/config/database")
 
-connectdb()
+connectToDB()
 
 app.listen(3000, ()=>{
-  console.log("server is runing on port 3000");
+  console.log("server is runing on port 3000")
 })
