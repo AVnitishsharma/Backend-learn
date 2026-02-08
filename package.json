@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev":"npx nodemon server.js"
+    "dev": "npx nodemon server.js"
   },
   "repository": {
     "type": "git",
@@ -20,8 +20,11 @@
   },
   "homepage": "https://github.com/AVnitishsharma/Backend-learn#readme",
   "dependencies": {
+    "cookie-parse": "^0.4.0",
+    "cookie-parser": "^1.4.7",
     "dotenv": "^17.2.4",
     "express": "^5.2.1",
+    "jsonwebtoken": "^9.0.3",
     "mongoose": "^9.1.6"
   }
 }
