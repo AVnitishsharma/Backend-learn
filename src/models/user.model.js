@@ -1,9 +1,10 @@
 const mongoose = require("mongoose")
 
 const userSchema = new mongoose.Schema({
-  name: {
-    type: String,
-    required: true
+  username:{
+    type:String,
+    required:true,
+    unique:[true, "This username is already exists"]
   },
   email: {
     type: String,
@@ -13,8 +14,13 @@ const userSchema = new mongoose.Schema({
   password: {
     type: String,
     required: true
+  },
+  bio:String,
+  dp:{
+    type:String,
+    default:"sdlfsdfksdkfsldfdlf"
   }
-});
+})
 
-const userModel = mongoose.model("User", userSchema)
+const userModel = mongoose.model("insta user", userSchema)
 module.exports = userModel

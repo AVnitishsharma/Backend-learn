@@ -1,6 +1,6 @@
-require("dotenv").config() // ye env ko server se connect krti ha
+require("dotenv").config()
 const app = require("./src/app")
-const connectToDB = require("./src/config/database")
+const connectToDB = require("./src/config/DB")
 
 connectToDB()
 
