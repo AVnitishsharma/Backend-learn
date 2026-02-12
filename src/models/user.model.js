@@ -4,23 +4,23 @@ const userSchema = new mongoose.Schema({
   username:{
     type:String,
     required:true,
-    unique:[true, "This username is already exists"]
+    unique:[true, "this username is allready exiest"]
   },
   email: {
     type: String,
     required: true,
-    unique:[true, "This email is allready exists"]
+    unique: [true, "this email is allready exiest"]
   },
   password: {
     type: String,
     required: true
   },
   bio:String,
-  dp:{
+  profilepic:{
     type:String,
-    default:"sdlfsdfksdkfsldfdlf"
+    default:"this is default profile peacture"
   }
 })
 
-const userModel = mongoose.model("insta user", userSchema)
+const userModel = mongoose.model("instaUser", userSchema)
 module.exports = userModel
