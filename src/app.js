@@ -10,7 +10,8 @@ app.use(express.json())
 app.use(cookieParser())
 
 app.use("/user", userRoute)
-app.use("/create", postRoute)
+
+app.use("/post", postRoute)
 
 
 module.exports = app
