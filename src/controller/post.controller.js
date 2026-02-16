@@ -8,22 +8,21 @@ const imagekit = new ImageKit({
 })
 
 async function createPostController (req, res) {
-  // console.log(req.body, req.file)
-
+  
   const token = req.cookies.token
 
   if(!token){
     return res.status(404).json({
-      message:"token not provided, Unauthorze acces"
+      message:"token is not found"
     })
   }
 
-  let decoded;
+  let decode;
   try{
-    decoded = jwt.verify(token, process.env.JWT_SECRATE)
+    decode = jwt.verify(token, process.env.JWT_SECRATE)
   } catch(err){
-    return res.status(401).json({
-      message: "user not athorize"
+    return  res.status(401).json({
+      message:"user not authorized"
     })
   }
 
@@ -34,18 +33,18 @@ async function createPostController (req, res) {
   });
 
   const post = await postModel.create({
-    imgurl: file.url,
+    imageurl: file.url,
     caption: req.body.caption,
-    user: decoded.id
+    user: decode.id
   })
 
   res.status(200).json({
-    message:"post create successfully",
+    message:"post is created",
     post
   })
 }
 
-async function getPostController (req, res) {
+async function getPostController(req, res) {
   
   const token = req.cookies.token
 
@@ -55,29 +54,30 @@ async function getPostController (req, res) {
     })
   }
 
-  let decoded;
+  let decode;
+
   try{
-    decoded = jwt.verify(token, process.env.JWT_SECRATE)
+    decode = jwt.verify(token, process.env.JWT_SECRATE)
   } catch(err){
     return res.status(401).json({
       message: "user not athorize"
     })
   }
 
-  const userId = decoded.id
+  const userId = decode.id
 
   const posts = await postModel.find({
     user: userId
   })
 
   res.status(200).json({
-    message: "all posts are featched",
+    message:"all posts are featched",
     posts
   })
 }
 
-async function getPostDetailsController(req, res) {
-
+async function detailsPostController(req, res) {
+  
   const token = req.cookies.token
 
   if(!token){
@@ -86,16 +86,16 @@ async function getPostDetailsController(req, res) {
     })
   }
 
-  let decoded;
+  let decode;
   try{
-    decoded = jwt.verify(token, process.env.JWT_SECRATE)
+    decode = jwt.verify(token, process.env.JWT_SECRATE)
   } catch(err){
     return res.status(401).json({
       message: "user not athorize"
     })
   }
 
-  const userId = decoded.id
+  const userId = decode.id
   const postId = req.params.postId
 
   const post = await postModel.findById(postId)
@@ -105,7 +105,7 @@ async function getPostDetailsController(req, res) {
       message:"post not found"
     })
   }
-
+  
   const isValidUser = post.user.toString() == userId
 
   if(!isValidUser){
@@ -115,10 +115,9 @@ async function getPostDetailsController(req, res) {
   }
 
   res.status(200).json({
-    message:"post details fetched successfully",
+    message:"Post details is featched",
     post
   })
 }
 
-
-module.exports = {createPostController, getPostController, getPostDetailsController}
+module.exports = {createPostController,getPostController,detailsPostController}

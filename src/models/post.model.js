@@ -1,14 +1,13 @@
 const mongoose = require("mongoose")
 
-
 const postSchema = new mongoose.Schema({  
-  imgurl:{
+  imageurl:{
     type:String,
-    required:[true, "whith out imgUrl you are not creating a post"]
+    required:[true, "with out url you not create a post"]
   },
   caption:{
     type:String,
-    default:''
+    default:""
   },
   user:{
     type:mongoose.Schema.Types.ObjectId,
